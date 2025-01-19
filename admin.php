@@ -24,6 +24,7 @@ if (isset($_GET['logout'])) {
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" href="assets/images/logo.png">
     <link rel="stylesheet" href="css/admin.css">
+    <script src="https://kit.fontawesome.com/f0add9272d.js"></script>
 </head>
 
 <body>
@@ -33,11 +34,11 @@ if (isset($_GET['logout'])) {
         <div class="logo">
             <img src="assets/images/logo.png" alt="Logo">
         </div>
-        <a href="?page=employee_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'employee_management') ? 'active' : ''; ?>">Quản lý nhân viên</a>
-        <a href="?page=crew_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'crew_management') ? 'active' : ''; ?>">Quản lý thuyền viên</a>
-        <a href="?page=overview" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'overview') ? 'active' : ''; ?>">Tổng quan hệ thống</a>
-        <a href="?page=support" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'support') ? 'active' : ''; ?>">Hỗ trợ</a>
-        <a href="?logout=true" class="text-danger">Đăng xuất</a> <!-- Nút đăng xuất -->
+        <a href="?page=employee_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'employee_management') ? 'active' : ''; ?>"><i class="fa-solid fa-circle-user"></i> Quản lý nhân viên</a>
+        <a href="?page=crew_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'crew_management') ? 'active' : ''; ?>"><i class="fa-solid fa-face-smile"></i> Quản lý thuyền viên</a>
+        <a href="?page=overview" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'overview') ? 'active' : ''; ?>"><i class="fa-solid fa-bars"></i> Tổng quan hệ thống</a>
+        <a href="?page=support" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'support') ? 'active' : ''; ?>"><i class="fa-solid fa-phone"></i> Hỗ trợ</a>
+        <a href="?logout=true" class="text-danger"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a> <!-- Nút đăng xuất -->
     </div>
 
     <!-- Nội dung trang -->

@@ -1,8 +1,25 @@
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 <script>
+  let searchTimeout;
+
+  $('#searchInput').keyup(function () {
+    clearTimeout(searchTimeout);
+
+    // Set a timeout to delay the search
+    searchTimeout = setTimeout(function () {
+      var searchTerm = $('#searchInput').val().toLowerCase();
+
+      // Filter the table rows based on the search term
+      $('table tbody tr').each(function () {
+        var rowText = $(this).text().toLowerCase();
+        if (rowText.indexOf(searchTerm) === -1) {
+          $(this).hide(); // Hide rows that don't match the search term
+        } else {
+          $(this).show(); // Show rows that match
+        }
+      });
+    }, 100);
+  });
+
   function fillCrewModal(crew) {
     $('#crewId').val(crew.ma_thuyenvien);
     $('#crewName').val(crew.ho_ten);
@@ -31,11 +48,16 @@
 
     $('#crewID').val(crew.ma_thuyenvien); // Không cho phép chỉnh sửa mã thuyền viên
   }
-  $('#updateCrewBtn').click(function () {
-    // Gửi yêu cầu cập nhật
-  });
 
+  // Cancel contract function with confirmation
   $('#cancelContractBtn').click(function () {
-    // Gửi yêu cầu hủy hợp đồng
+    var confirmation = confirm('Bạn có chắc chắn muốn hủy hợp đồng này không?');
+
+    if (confirmation) {
+      // Code to handle the contract cancellation (e.g., AJAX request to update the database)
+      alert('Contract has been canceled.');
+    } else {
+      alert('Cancellation aborted.');
+    }
   });
 </script>
