@@ -1,0 +1,45 @@
+table th,
+table td {
+  white-space: nowrap; /* Đảm bảo không bị xuống dòng */
+  vertical-align: middle; /* Căn giữa theo chiều dọc */
+  text-align: center; /* Căn giữa theo chiều ngang nếu muốn */
+}
+.table td {
+  text-align: left;
+  vertical-align: middle; /* Căn giữa theo chiều dọc */
+}
+
+td img {
+  height: 80px !important;
+  max-width: 90px;
+  height: auto;
+}
+
+.modal-dialog {
+  max-width: 80%;
+}
+
+#crewAvatar {
+  height: 100% !important;
+  width: 100% !important;
+  object-fit: cover;
+}
+
+/* Căn chỉnh modal xác nhận hủy hợp đồng */
+#confirmCancelModal .modal-dialog {
+  max-width: 400px; /* Chiều rộng tối đa của modal */
+  margin: 30px auto; /* Căn giữa modal trong màn hình */
+}
+
+#confirmCancelModal .modal-content {
+  padding: 20px; /* Padding trong modal */
+  border-radius: 10px; /* Làm tròn góc của modal */
+}
+
+#confirmCancelModal .modal-header {
+  border-bottom: 1px solid #ddd; /* Viền dưới của header */
+}
+
+#confirmCancelModal .modal-footer {
+  text-align: center; /* Căn giữa nút ở footer */
+}
