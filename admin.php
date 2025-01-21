@@ -34,11 +34,54 @@ if (isset($_GET['logout'])) {
         <div class="logo">
             <img src="assets/images/logo.png" alt="Logo">
         </div>
-        <a href="?page=employee_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'employee_management') ? 'active' : ''; ?>"><i class="fa-solid fa-circle-user"></i> Quản lý nhân viên</a>
-        <a href="?page=crew_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'crew_management') ? 'active' : ''; ?>"><i class="fa-solid fa-face-smile"></i> Quản lý thuyền viên</a>
-        <a href="?page=overview" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'overview') ? 'active' : ''; ?>"><i class="fa-solid fa-bars"></i> Tổng quan hệ thống</a>
-        <a href="?page=support" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'support') ? 'active' : ''; ?>"><i class="fa-solid fa-phone"></i> Hỗ trợ</a>
-        <a href="?logout=true" class="text-danger"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a> <!-- Nút đăng xuất -->
+        <a href="?page=employee_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'employee_management') ? 'active' : ''; ?>">
+            <div class="icon-text">
+                <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
+                <div class="text">Quản lý nhân viên</div>
+            </div>
+        </a>
+
+        <a href="?page=crew_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'crew_management') ? 'active' : ''; ?>">
+            <div class="icon-text">
+                <div class="icon"><i class="fa-solid fa-face-smile"></i></div>
+                <div class="text">Quản lý thuyền viên</div>
+            </div>
+        </a>
+
+        <a href="?page=ship_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'ship_management') ? 'active' : ''; ?>">
+            <div class="icon-text">
+                <div class="icon"><i class="fa-solid fa-ship"></i></div>
+                <div class="text">Quản lý tàu</div>
+            </div>
+        </a>
+
+        <a href="?page=region_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'region_management') ? 'active' : ''; ?>">
+            <div class="icon-text">
+                <div class="icon"><i class="fa-solid fa-map-marker-alt"></i></div>
+                <div class="text">Quản lý khu vực</div>
+            </div>
+        </a>
+
+        <a href="?page=overview" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'overview') ? 'active' : ''; ?>">
+            <div class="icon-text">
+                <div class="icon"><i class="fa-solid fa-bars"></i></div>
+                <div class="text">Tổng quan</div>
+            </div>
+        </a>
+
+        <a href="?page=support" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'support') ? 'active' : ''; ?>">
+            <div class="icon-text">
+                <div class="icon"><i class="fa-solid fa-phone"></i></div>
+                <div class="text">Hỗ trợ</div>
+            </div>
+        </a>
+
+        <a href="?logout=true" class="text-danger">
+            <div class="icon-text">
+                <div class="icon"><i class="fas fa-sign-out-alt"></i></div>
+                <div class="text">Đăng xuất</div>
+            </div>
+        </a>
     </div>
 
     <!-- Nội dung trang -->

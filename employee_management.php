@@ -59,8 +59,12 @@ if (isset($_POST['lock_id'])) {
 
 <body>
     <div>
-        <h2>Quản lý nhân viên</h2>
-
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <!-- Tìm kiếm -->
+                <input type="text" id="searchInput" class="form-control mb-3" placeholder="Tìm kiếm theo tên, email">
+            </div>
+        </div>
         <!-- Bảng hiển thị thông tin người dùng với khả năng cuộn ngang -->
         <div class="table-responsive">
             <table class="table table-striped">
@@ -140,6 +144,8 @@ if (isset($_POST['lock_id'])) {
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/employee_management.js"></script>                   
+
 </body>
 
 </html>

@@ -17,6 +17,22 @@
   transition: background-color 0.3s;
 }
 
+.icon-text {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Adjust the space between icon and text */
+}
+
+.icon {
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon i {
+  font-size: 1.2em; /* Adjust the icon size */
+}
 .content {
   margin-left: 250px;
   padding: 20px;

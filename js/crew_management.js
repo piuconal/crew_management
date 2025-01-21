@@ -29,8 +29,16 @@ $("#searchInput").keyup(function () {
 
     // Filter the table rows based on the search term
     $("table tbody tr").each(function () {
-      var rowText = $(this).text().toLowerCase();
-      if (rowText.indexOf(searchTerm) === -1) {
+      var nameText = $(this).find("td:nth-child(1)").text().toLowerCase(); // Họ tên column
+      var passportNumberText = $(this)
+        .find("td:nth-child(2)")
+        .text()
+        .toLowerCase(); // Số hộ chiếu column
+
+      if (
+        nameText.indexOf(searchTerm) === -1 &&
+        passportNumberText.indexOf(searchTerm) === -1
+      ) {
         $(this).hide(); // Hide rows that don't match the search term
       } else {
         $(this).show(); // Show rows that match
@@ -40,32 +48,30 @@ $("#searchInput").keyup(function () {
 });
 
 function fillCrewModal(crew) {
-  $("#crewId").val(crew.ma_thuyenvien);
-  $("#crewName").val(crew.ho_ten);
-  $("#crewPhone").val(crew.so_dien_thoai);
-  $("#crewEmail").val(crew.email);
-  $("#crewAddress").val(crew.dia_chi);
-  $("#crewDOB").val(crew.ngay_sinh);
-  $("#crewGender").val(crew.gioi_tinh);
-  $("#crewNationality").val(crew.quoc_tich);
-  $("#crewStartDate").val(crew.ngay_vao_lam);
-  $("#crewPosition").val(crew.chuc_vu);
-  $("#crewLicense").val(crew.so_giay_phep_lao_dong);
-  $("#crewWorkTime").val(crew.thoi_gian_cong_tac);
-  $("#crewExperience").val(crew.kinh_nghiem);
-  $("#crewSkills").val(crew.ky_nang);
-  $("#crewNotes").val(crew.ghi_chu);
-  $("#crewInsurance").val(crew.bao_hiem);
-  $("#crewSpecialization").val(crew.chuyen_mon);
+  // Populate modal fields with the crew information
+  $("#crewName").val(crew.Name); // Họ tên
+  $("#crewPassportNumber").val(crew.Passport_Number); // Số hộ chiếu
+  $("#crewSeamanID").val(crew.Seaman_ID_Number); // Mã thuyền viên (disabled)
+  $("#crewDOB").val(crew.DOB); // Ngày sinh
+  $("#crewAge").val(crew.Age); // Tuổi
+  $("#crewVNAddress").val(crew.VN_Address); // Địa chỉ
+  $("#crewVNCity").val(crew.VN_City); // Thành phố
+  $("#crewVNPhone").val(crew.VN_Phone); // Số điện thoại
+  $("#crewRegion").val(crew.Region); // Khu vực
+  $("#crewShipNumber").val(crew.Ship_Number); // Số tàu
+  $("#crewHeight").val(crew.Height); // Chiều cao
+  $("#crewWeight").val(crew.Weight); // Cân nặng
+  $("#crewMaritalStatus").val(crew.Marital_Status); // Tình trạng hôn nhân
+  $("#crewFamilyMember").val(crew.Family_Member); // Số thành viên gia đình
+  $("#crewLastModifiedDate").val(crew.Last_Modified_Date); // Ngày sửa đổi cuối
+  $("#crewNumOfTransfer").val(crew.Num_of_Transfer); // Số lần chuyển công tác
+  $("#crewRecord").val(crew.Record); // Hồ sơ
+  $("#crewWordStatus").val(crew.Word_Status); // Trạng thái công việc
+  $("#crewGFReentry").val(crew.GF_Reentry); // Đăng ký lại
+  $("#crewDOE").val(crew.DOE); // Ngày hết hạn
+  $("#crewGraduation").val(crew.Graduation); // Trình độ
 
-  // Hiển thị ảnh đại diện
-  if (crew.anh_dai_dien) {
-    $("#crewAvatar").attr("src", crew.anh_dai_dien);
-  } else {
-    $("#crewAvatar").attr("src", "assets/images/default-avatar.png");
-  }
-
-  $("#crewID").val(crew.ma_thuyenvien); // Không cho phép chỉnh sửa mã thuyền viên
+  $("#crewID").val(crew.Seaman_ID_Number);
 }
 
 // Cancel contract function with confirmation
