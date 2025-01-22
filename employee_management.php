@@ -51,9 +51,7 @@ if (isset($_POST['lock_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crew Management</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" href="assets/images/logo.png">
     <link rel="stylesheet" href="css/employee_management.css">
 </head>
 

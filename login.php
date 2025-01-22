@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               header("Location: admin.php");
             } else {
               // Nếu là "nhanvien", chuyển hướng đến dashboard.php
-              header("Location: dashboard.php");
+              header("Location: staff.php");
             }
             exit();
         } else {

@@ -1,0 +1,38 @@
+.dashboard-card {
+  transition: all 0.3s ease-in-out;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: #4e73df;
+  color: white;
+}
+
+.card-body {
+  background-color: #ffffff;
+  color: #333;
+}
+
+.card-icon {
+  font-size: 3rem;
+}
+
+.count {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.row {
+  margin-top: 30px;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1.5rem;
+  }
+}

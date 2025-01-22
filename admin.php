@@ -34,24 +34,18 @@ if (isset($_GET['logout'])) {
         <div class="logo">
             <img src="assets/images/logo.png" alt="Logo">
         </div>
+
+        <a href="?page=overview" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'overview') ? 'active' : ''; ?>">
+            <div class="icon-text">
+                <div class="icon"><i class="fa-solid fa-bars"></i></div>
+                <div class="text">Tổng quan</div>
+            </div>
+        </a>
+
         <a href="?page=employee_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'employee_management') ? 'active' : ''; ?>">
             <div class="icon-text">
                 <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
                 <div class="text">Quản lý nhân viên</div>
-            </div>
-        </a>
-
-        <a href="?page=crew_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'crew_management') ? 'active' : ''; ?>">
-            <div class="icon-text">
-                <div class="icon"><i class="fa-solid fa-face-smile"></i></div>
-                <div class="text">Quản lý thuyền viên</div>
-            </div>
-        </a>
-
-        <a href="?page=ship_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'ship_management') ? 'active' : ''; ?>">
-            <div class="icon-text">
-                <div class="icon"><i class="fa-solid fa-ship"></i></div>
-                <div class="text">Quản lý tàu</div>
             </div>
         </a>
 
@@ -62,10 +56,17 @@ if (isset($_GET['logout'])) {
             </div>
         </a>
 
-        <a href="?page=overview" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'overview') ? 'active' : ''; ?>">
+        <a href="?page=ship_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'ship_management') ? 'active' : ''; ?>">
             <div class="icon-text">
-                <div class="icon"><i class="fa-solid fa-bars"></i></div>
-                <div class="text">Tổng quan</div>
+                <div class="icon"><i class="fa-solid fa-ship"></i></div>
+                <div class="text">Quản lý tàu</div>
+            </div>
+        </a>
+
+        <a href="?page=crew_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'crew_management') ? 'active' : ''; ?>">
+            <div class="icon-text">
+                <div class="icon"><i class="fa-solid fa-face-smile"></i></div>
+                <div class="text">Quản lý thuyền viên</div>
             </div>
         </a>
 
@@ -97,6 +98,12 @@ if (isset($_GET['logout'])) {
                 case 'crew_management':
                     include('crew_management.php');
                     break;
+                case 'region_management':  // Thêm case cho quản lý khu vực
+                    include('region_management.php');
+                    break;
+                case 'ship_management':  // Thêm case cho quản lý khu vực
+                    include('ship_management.php');
+                    break;
                 case 'overview':
                     include('overview.php');
                     break;
@@ -106,7 +113,7 @@ if (isset($_GET['logout'])) {
                 default:
                     echo "<h2>Trang không tồn tại</h2>";
                     break;
-            }
+            }            
         } else {
             echo "<h2>Chào mừng đến với Dashboard</h2><p>Trang này chứa các thông tin tổng quan và quản lý hệ thống của bạn.</p>";
         }

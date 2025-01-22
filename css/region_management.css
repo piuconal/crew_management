@@ -1,0 +1,18 @@
+/* Cho phép cuộn ngang nếu bảng quá dài */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Căn lề tất cả các cột sang trái */
+.table th,
+.table td {
+  text-align: left;
+  vertical-align: middle; /* Căn giữa theo chiều dọc */
+}
+
+/* Căn chính giữa cột trạng thái */
+.table td.status,
+.table th.status {
+  text-align: center; /* Căn giữa theo chiều ngang */
+}
