@@ -17,6 +17,10 @@ if (mysqli_num_rows($result) > 0) {
 } else {
     $crews = [];
 }
+$ship_query = "SELECT ship_code, name FROM ships";
+$ship_result = $conn->query($ship_query);
+$ships = $ship_result->fetch_all(MYSQLI_ASSOC);
+
 
 mysqli_close($conn);
 ?>
@@ -33,15 +37,19 @@ mysqli_close($conn);
 </head>
 
 <body>
-  <div>
-    <div class="row mb-3">
-      <div class="col-md-4">
-        <input type="text" class="form-control" id="searchInput" placeholder="Tìm kiếm theo tên, số hộ chiếu">
-      </div>
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <input type="text" class="form-control" id="searchInput" placeholder="Tìm kiếm theo tên, số hộ chiếu">
     </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCrewModal">
+        Thêm thuyền viên
+      </button>
+    </div>
+  </div>
 
-    <!-- Bảng hiển thị thông tin thuyền viên -->
-    <div class="table-responsive">
+  <!-- Bảng hiển thị thông tin thuyền viên -->
+  <div class="table-responsive">
     <table class="table table-striped">
         <thead>
             <tr>
@@ -99,109 +107,206 @@ mysqli_close($conn);
     </div>
   </div>
 
-  <!-- Modal Bootstrap -->
-  <div class="modal fade" id="crewModal" tabindex="-1" role="dialog" aria-labelledby="crewModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="crewModalLabel">Chỉnh sửa thông tin thuyền viên</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="crewForm">
-            <input type="hidden" id="crewID" name="id">
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="crewName">Họ tên</label>
-                  <input type="text" class="form-control" id="crewName" name="name">
-                </div>
-                <div class="form-group">
-                  <label for="crewPassportNumber">Số hộ chiếu</label>
-                  <input type="text" class="form-control" id="crewPassportNumber" name="passport_number">
-                </div>
-                <div class="form-group">
-                  <label for="crewForeignNumber">Mã người nước ngoài</label>
-                  <input type="text" class="form-control" id="crewForeignNumber" name="foreign_number">
-                </div>
-                <div class="form-group">
-                  <label for="crewBirthDate">Ngày sinh</label>
-                  <input type="date" class="form-control" id="crewBirthDate" name="birth_date">
-                </div>
-                <div class="form-group">
-                  <label for="crewAge">Tuổi</label>
-                  <input type="number" class="form-control" id="crewAge" name="age">
-                </div>
-                <div class="form-group">
-                  <label for="crewVietnamAddress">Địa chỉ VN</label>
-                  <input type="text" class="form-control" id="crewVietnamAddress" name="vietnam_address">
-                </div>
+  <!-- Modal Chi Tiết Thuyền Viên -->
+  <div class="modal fade" id="crewModal" tabindex="-1">
+      <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Chi tiết thuyền viên</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
               </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="crewVietnamPhone">Số điện thoại VN</label>
-                  <input type="text" class="form-control" id="crewVietnamPhone" name="vietnam_phone">
-                </div>
-                <div class="form-group">
-                  <label for="crewShipName">Tên tàu</label>
-                  <input type="text" class="form-control" id="crewShipName" name="ship_name" disabled>
-                </div>
-                <div class="form-group">
-                  <label for="crewHeight">Chiều cao (cm)</label>
-                  <input type="number" step="0.01" class="form-control" id="crewHeight" name="height">
-                </div>
-                <div class="form-group">
-                  <label for="crewWeight">Cân nặng (kg)</label>
-                  <input type="number" class="form-control" id="crewWeight" name="weight">
-                </div>
-                <div class="form-group">
-                  <label for="crewMaritalStatus">Tình trạng hôn nhân</label>
-                  <input type="text" class="form-control" id="crewMaritalStatus" name="marital_status">
-                </div>
-                <div class="form-group">
-                  <label for="crewFamilySize">Số thành viên gia đình</label>
-                  <input type="number" class="form-control" id="crewFamilySize" name="family_size">
-                </div>
+              <div class="modal-body">
+                  <form id="updateCrewForm">
+                      <input type="hidden" id="crew_id" name="id">
+                      
+                      <div class="row">
+                          <div class="col-md-4">
+                              <label>Mã tàu:</label>
+                              <select id="ship_code" name="ship_code" class="form-control">
+                                  <?php foreach ($ships as $ship) : ?>
+                                      <option value="<?= $ship['ship_code'] ?>"><?= $ship['ship_code'] ?> - <?= $ship['name'] ?></option>
+                                  <?php endforeach; ?>
+                              </select>
+                              
+                              <label>Ngày thay đổi cuối:</label>
+                              <input type="date" id="last_change_date" name="last_change_date" class="form-control">
+                              
+                              <label>Tên thuyền viên:</label>
+                              <input type="text" id="name" name="name" class="form-control">
+                              
+                              <label>Số hộ chiếu:</label>
+                              <input type="text" id="passport_number" name="passport_number" class="form-control" readonly>
+                              
+                              <label>Trạng thái làm việc:</label>
+                              <input type="text" id="employment_status" name="employment_status" class="form-control">
+                              
+                              <label>Ngày nhập cảnh:</label>
+                              <input type="date" id="entry_date" name="entry_date" class="form-control">
+                              
+                              <label>Mã số người nước ngoài:</label>
+                              <input type="text" id="foreign_number" name="foreign_number" class="form-control">
+                          </div>
+
+                          <div class="col-md-4">
+                              <label>Địa chỉ VN:</label>
+                              <input type="text" id="vietnam_address" name="vietnam_address" class="form-control">
+                              
+                              <label>Số điện thoại VN:</label>
+                              <input type="text" id="vietnam_phone" name="vietnam_phone" class="form-control">
+                              
+                              <label>Học vấn:</label>
+                              <input type="text" id="education" name="education" class="form-control">
+                              
+                              <label>Chiều cao (cm):</label>
+                              <input type="number" id="height" name="height" class="form-control">
+                              
+                              <label>Cân nặng (kg):</label>
+                              <input type="number" id="weight" name="weight" class="form-control">
+                              
+                              <label>Tình trạng hôn nhân:</label>
+                              <select id="marital_status" name="marital_status" class="form-control">
+                                  <option value="Đã kết hôn">Đã kết hôn</option>
+                                  <option value="Chưa kết hôn">Chưa kết hôn</option>
+                              </select>
+                          </div>
+
+                          <div class="col-md-4">
+                              
+                              <label>Số người trong gia đình:</label>
+                              <input type="number" id="family_size" name="family_size" class="form-control">
+                              
+                              <label>Số lần chuyển tàu:</label>
+                              <input type="number" id="transfer_count" name="transfer_count" class="form-control">
+                              
+                              <label>Tái nhập cảnh:</label>
+                              <select id="reentry_status" name="reentry_status" class="form-control">
+                                  <option value="Có">Có</option>
+                                  <option value="Không">Không</option>
+                              </select>
+                              
+                              <label>Ngày sinh:</label>
+                              <input type="date" id="birth_date" name="birth_date" class="form-control">
+                              
+                              <label>ID thuyền viên:</label>
+                              <input type="text" id="crew_id_number" name="crew_id" class="form-control">
+                              
+                              <label>Số ID ngoại quốc:</label>
+                              <input type="text" id="foreign_registration_number" name="foreign_registration_number" class="form-control">
+                              
+                              <label>Tuổi:</label>
+                              <input type="number" id="age" name="age" class="form-control">
+                          </div>
+                      </div>
+                      <br>
+                      <button type="submit" class="btn btn-primary">Cập nhật</button>
+                      <button type="button" class="btn btn-danger" id="deleteCrew">Xóa</button>
+                      <button type="button" class="btn btn-warning" id="cancelContractBtn">Hủy hợp đồng</button>
+                  </form>
               </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="crewUpdatedAt">Ngày sửa đổi cuối</label>
-                  <input type="datetime-local" class="form-control" id="crewUpdatedAt" name="updated_at" disabled>
-                </div>
-                <div class="form-group">
-                  <label for="crewTransferCount">Số lần chuyển tàu</label>
-                  <input type="number" class="form-control" id="crewTransferCount" name="transfer_count">
-                </div>
-                <div class="form-group">
-                  <label for="crewEmploymentStatus">Trạng thái công việc</label>
-                  <input type="text" class="form-control" id="crewEmploymentStatus" name="employment_status">
-                </div>
-                <div class="form-group">
-                  <label for="crewType">Loại</label>
-                  <input type="text" class="form-control" id="crewType" name="type">
-                </div>
-                <div class="form-group">
-                  <label for="crewEntryDate">Ngày nhập cảnh</label>
-                  <input type="date" class="form-control" id="crewEntryDate" name="entry_date">
-                </div>
-                <div class="form-group">
-                  <label for="crewEducation">Trình độ</label>
-                  <input type="text" class="form-control" id="crewEducation" name="education">
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" id="cancelContractBtn">Hủy hợp đồng</button>
-          <button type="button" class="btn btn-primary" id="updateCrewBtn">Cập nhật</button>
-        </div>
+          </div>
       </div>
-    </div>
   </div>
 
+  <!-- Modal Thêm Thuyền Viên -->
+  <div class="modal fade" id="addCrewModal" tabindex="-1">
+      <div class="modal-dialog modal-xl"> <!-- modal-xl để mở rộng modal -->
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Thêm thuyền viên mới</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                  <form action="add_crew.php" method="POST">
+                      <div class="row">
+                          <!-- CỘT 1 -->
+                          <div class="col-md-4">
+                              <label>Mã tàu:</label>
+                              <select id="ship_code" name="ship_code" class="form-control">
+                                  <?php foreach ($ships as $ship) : ?>
+                                      <option value="<?= $ship['ship_code'] ?>"><?= $ship['ship_code'] ?> - <?= $ship['name'] ?></option>
+                                  <?php endforeach; ?>
+                              </select>
+                              
+                              <label>Ngày thay đổi cuối:</label>
+                              <input type="date" name="last_change_date" class="form-control" required>
+                              
+                              <label>Tên thuyền viên:</label>
+                              <input type="text" name="name" class="form-control" required>
+                              
+                              <label>Số hộ chiếu:</label>
+                              <input type="text" name="passport_number" class="form-control" required>
+                              
+                              <label>Trạng thái làm việc:</label>
+                              <input type="text" name="employment_status" class="form-control">
+                              
+                              <label>Ngày nhập cảnh:</label>
+                              <input type="date" name="entry_date" class="form-control">
+
+                              <label>Mã số người nước ngoài:</label>
+                              <input type="text" name="foreign_number" class="form-control">
+                          </div>
+
+                          <!-- CỘT 2 -->
+                          <div class="col-md-4">
+                              
+                              <label>Địa chỉ VN:</label>
+                              <input type="text" name="vietnam_address" class="form-control">
+                              
+                              <label>Số điện thoại VN:</label>
+                              <input type="text" name="vietnam_phone" class="form-control">
+                              
+                              <label>Học vấn:</label>
+                              <input type="text" name="education" class="form-control">
+                              
+                              <label>Chiều cao (cm):</label>
+                              <input type="number" name="height" class="form-control">
+                              
+                              <label>Cân nặng (kg):</label>
+                              <input type="number" name="weight" class="form-control">
+
+                              <label>Tình trạng hôn nhân:</label>
+                              <select name="marital_status" class="form-control">
+                                  <option value="Đã kết hôn">Đã kết hôn</option>
+                                  <option value="Chưa kết hôn">Chưa kết hôn</option>
+                              </select>
+                          </div>
+
+                          <!-- CỘT 3 -->
+                          <div class="col-md-4">
+                              
+                              <label>Số người trong gia đình:</label>
+                              <input type="number" name="family_size" class="form-control">
+                              
+                              <label>Số lần chuyển tàu:</label>
+                              <input type="number" name="transfer_count" class="form-control">
+                              
+                              <label>Tái nhập cảnh:</label>
+                              <select name="reentry_status" class="form-control">
+                                  <option value="Có">Có</option>
+                                  <option value="Không">Không</option>
+                              </select>
+                              
+                              <label>Ngày sinh:</label>
+                              <input type="date" name="birth_date" class="form-control">
+                              
+                              <label>ID thuyền viên:</label>
+                              <input type="text" name="crew_id" class="form-control">
+                              
+                              <label>Số ID ngoại quốc:</label>
+                              <input type="text" name="foreign_registration_number" class="form-control">
+                              
+                              <label>Tuổi:</label>
+                              <input type="number" name="age" class="form-control">
+                          </div>
+                      </div>
+                      <br>
+                      <button type="submit" class="btn btn-success">Thêm thuyền viên</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+  
   <button id="scrollToTopBtn" class="btn btn-primary" style="display: none;"><i class="fa-solid fa-arrow-up"></i></button>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

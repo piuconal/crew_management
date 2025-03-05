@@ -47,30 +47,6 @@ $("#searchInput").keyup(function () {
   }, 100);
 });
 
-function fillCrewModal(crew) {
-  $("#crewID").val(crew.id || "");
-  $("#crewName").val(crew.name || "");
-  $("#crewPassportNumber").val(crew.passport_number || "");
-  $("#crewForeignNumber").val(crew.foreign_number || "");
-  $("#crewBirthDate").val(crew.birth_date || "");
-  $("#crewAge").val(crew.age || "");
-  $("#crewVietnamAddress").val(crew.vietnam_address || "");
-  $("#crewVietnamPhone").val(crew.vietnam_phone || "");
-  $("#crewShipName").val(crew.ship_name || "");
-  $("#crewHeight").val(crew.height || "");
-  $("#crewWeight").val(crew.weight || "");
-  $("#crewMaritalStatus").val(crew.marital_status || "");
-  $("#crewFamilySize").val(crew.family_size || "");
-  $("#crewUpdatedAt").val(
-    crew.updated_at ? crew.updated_at.replace(" ", "T") : ""
-  );
-  $("#crewTransferCount").val(crew.transfer_count || "");
-  $("#crewEmploymentStatus").val(crew.employment_status || "");
-  $("#crewEntryDate").val(crew.entry_date || "");
-  $("#crewEducation").val(crew.education || "");
-  $("#crewReentryStatus").val(crew.reentry_status || "Không");
-}
-
 // Cancel contract function with confirmation
 $("#cancelContractBtn").click(function () {
   var confirmation = confirm("Bạn có chắc chắn muốn hủy hợp đồng này không?");
@@ -80,5 +56,68 @@ $("#cancelContractBtn").click(function () {
     alert("Hợp đồng đã bị hủy. File Word sẽ được tải xuống.");
   } else {
     alert("Hủy hợp đồng đã bị hủy.");
+  }
+});
+
+function fillCrewModal(crew) {
+  document.getElementById("crew_id").value = crew.id;
+  document.getElementById("ship_code").value = crew.ship_code;
+  document.getElementById("last_change_date").value = crew.last_change_date;
+  document.getElementById("name").value = crew.name;
+  document.getElementById("passport_number").value = crew.passport_number;
+  document.getElementById("employment_status").value = crew.employment_status;
+  document.getElementById("entry_date").value = crew.entry_date;
+  document.getElementById("foreign_number").value = crew.foreign_number;
+  document.getElementById("vietnam_address").value = crew.vietnam_address;
+  document.getElementById("vietnam_phone").value = crew.vietnam_phone;
+  document.getElementById("education").value = crew.education;
+  document.getElementById("height").value = crew.height;
+  document.getElementById("weight").value = crew.weight;
+  document.getElementById("marital_status").value = crew.marital_status;
+  document.getElementById("family_size").value = crew.family_size;
+  document.getElementById("transfer_count").value = crew.transfer_count;
+  document.getElementById("reentry_status").value = crew.reentry_status;
+  document.getElementById("birth_date").value = crew.birth_date;
+  document.getElementById("crew_id_number").value = crew.crew_id;
+  document.getElementById("foreign_registration_number").value =
+    crew.foreign_registration_number;
+  document.getElementById("age").value = crew.age;
+}
+document
+  .getElementById("updateCrewForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    let formData = new FormData(this);
+
+    fetch("update_crew.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        alert(data);
+        location.reload();
+      })
+      .catch((error) => console.error("Lỗi:", error));
+  });
+
+document.getElementById("deleteCrew").addEventListener("click", function () {
+  let crewId = document.getElementById("crew_id").value;
+
+  if (confirm("Bạn có chắc chắn muốn xóa thuyền viên này?")) {
+    fetch("delete_crew.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: "id=" + encodeURIComponent(crewId),
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        alert(data);
+        location.reload();
+      })
+      .catch((error) => console.error("Lỗi:", error));
   }
 });
