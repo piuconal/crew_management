@@ -6,12 +6,12 @@ $error_message = ''; // Biến chứa thông báo lỗi
 
 // Kiểm tra nếu form đã được gửi
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Lấy email và mật khẩu người dùng
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    // Lấy username và mật khẩu người dùng
+    $username = mysqli_real_escape_string($conn, $_POST['username']); // Thay email bằng username
     $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-    // Câu truy vấn SQL để lấy thông tin người dùng dựa trên email
-    $sql = "SELECT * FROM users WHERE email = '$email' AND status = 'active'";
+    // Câu truy vấn SQL để lấy thông tin người dùng dựa trên username
+    $sql = "SELECT * FROM users WHERE username = '$username'";
     $result = mysqli_query($conn, $sql);
 
     // Kiểm tra xem người dùng có tồn tại không
@@ -20,28 +20,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Kiểm tra mật khẩu
         if (password_verify($password, $user['password'])) {
-            // Đăng nhập thành công, có thể lưu thông tin vào session
+            // Đăng nhập thành công, lưu thông tin vào session
             session_start();
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['name'];
-            $_SESSION['user_email'] = $user['email'];
+            $_SESSION['user_name'] = $user['username']; // Thay user['name'] bằng user['username']
+            $_SESSION['user_email'] = null; // Không có email trong DB, để null hoặc bỏ
 
-            // Chuyển hướng đến trang phù hợp dựa trên vai trò người dùng
-            if ($user['role'] == 'sep') {
-              // Nếu là "sep", chuyển hướng đến admin.php
-              header("Location: admin.php");
-            } else {
-              // Nếu là "nhanvien", chuyển hướng đến dashboard.php
-              header("Location: staff.php");
-            }
+            // Chuyển hướng đến trang dashboard (vì không có role trong DB)
+            header("Location: admin.php");
             exit();
         } else {
             // Mật khẩu không chính xác
             $error_message = "Sai mật khẩu!";
         }
     } else {
-        // Không tìm thấy người dùng hoặc người dùng không hoạt động
-        $error_message = "Tài khoản chưa được kích hoạt!";
+        // Không tìm thấy người dùng
+        $error_message = "Tài khoản không tồn tại!";
     }
 }
 ?>
@@ -68,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
   <!-- Hiển thị thông báo lỗi nếu có -->
   <?php if (!empty($error_message)): ?>
-    <div class="alert alert-danger  fade show centered-alert" role="alert">
+    <div class="alert alert-danger fade show centered-alert" role="alert">
       <?php echo $error_message; ?>
       <a href="index.php" class="btn btn-danger mt-2">Quay lại trang chủ</a> <!-- Nút quay lại trang chủ -->
     </div>

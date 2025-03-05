@@ -48,43 +48,35 @@ $("#searchInput").keyup(function () {
 });
 
 function fillCrewModal(crew) {
-  // Populate modal fields with the crew information
-  $("#crewName").val(crew.Name); // Họ tên
-  $("#crewPassportNumber").val(crew.Passport_Number); // Số hộ chiếu
-  $("#crewSeamanID").val(crew.Seaman_ID_Number); // Mã thuyền viên (disabled)
-  $("#crewDOB").val(crew.DOB); // Ngày sinh
-  $("#crewAge").val(crew.Age); // Tuổi
-  $("#crewVNAddress").val(crew.VN_Address); // Địa chỉ
-  $("#crewVNCity").val(crew.VN_City); // Thành phố
-  $("#crewVNPhone").val(crew.VN_Phone); // Số điện thoại
-  $("#crewRegion").val(crew.Region); // Khu vực
-  $("#crewShipNumber").val(crew.Ship_Number); // Số tàu
-  $("#crewHeight").val(crew.Height); // Chiều cao
-  $("#crewWeight").val(crew.Weight); // Cân nặng
-  $("#crewMaritalStatus").val(crew.Marital_Status); // Tình trạng hôn nhân
-  $("#crewFamilyMember").val(crew.Family_Member); // Số thành viên gia đình
-  $("#crewLastModifiedDate").val(crew.Last_Modified_Date); // Ngày sửa đổi cuối
-  $("#crewNumOfTransfer").val(crew.Num_of_Transfer); // Số lần chuyển công tác
-  $("#crewRecord").val(crew.Record); // Hồ sơ
-  $("#crewWordStatus").val(crew.Word_Status); // Trạng thái công việc
-  $("#crewGFReentry").val(crew.GF_Reentry); // Đăng ký lại
-  $("#crewDOE").val(crew.DOE); // Ngày hết hạn
-  $("#crewGraduation").val(crew.Graduation); // Trình độ
-
-  $("#crewID").val(crew.Seaman_ID_Number);
+  $("#crewID").val(crew.id || "");
+  $("#crewName").val(crew.name || "");
+  $("#crewPassportNumber").val(crew.passport_number || "");
+  $("#crewForeignNumber").val(crew.foreign_number || "");
+  $("#crewBirthDate").val(crew.birth_date || "");
+  $("#crewAge").val(crew.age || "");
+  $("#crewVietnamAddress").val(crew.vietnam_address || "");
+  $("#crewVietnamPhone").val(crew.vietnam_phone || "");
+  $("#crewShipName").val(crew.ship_name || "");
+  $("#crewHeight").val(crew.height || "");
+  $("#crewWeight").val(crew.weight || "");
+  $("#crewMaritalStatus").val(crew.marital_status || "");
+  $("#crewFamilySize").val(crew.family_size || "");
+  $("#crewUpdatedAt").val(
+    crew.updated_at ? crew.updated_at.replace(" ", "T") : ""
+  );
+  $("#crewTransferCount").val(crew.transfer_count || "");
+  $("#crewEmploymentStatus").val(crew.employment_status || "");
+  $("#crewEntryDate").val(crew.entry_date || "");
+  $("#crewEducation").val(crew.education || "");
+  $("#crewReentryStatus").val(crew.reentry_status || "Không");
 }
 
 // Cancel contract function with confirmation
 $("#cancelContractBtn").click(function () {
   var confirmation = confirm("Bạn có chắc chắn muốn hủy hợp đồng này không?");
-
   if (confirmation) {
-    // Code to handle the contract cancellation (e.g., AJAX request to update the database)
     var crewId = $("#crewID").val(); // Lấy ID thuyền viên từ modal
-
-    // Gửi yêu cầu tải file Word
-    window.location.href = "generate_word.php?crewId=" + crewId; // Chuyển hướng đến trang generate_word.php để tải file
-
+    window.location.href = "generate_word.php?crewId=" + crewId; // Chuyển hướng đến trang generate_word.php
     alert("Hợp đồng đã bị hủy. File Word sẽ được tải xuống.");
   } else {
     alert("Hủy hợp đồng đã bị hủy.");

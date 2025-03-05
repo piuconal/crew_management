@@ -42,12 +42,12 @@ if (isset($_GET['logout'])) {
             </div>
         </a>
 
-        <a href="?page=employee_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'employee_management') ? 'active' : ''; ?>">
+        <!-- <a href="?page=employee_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'employee_management') ? 'active' : ''; ?>">
             <div class="icon-text">
                 <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
                 <div class="text">Quản lý nhân viên</div>
             </div>
-        </a>
+        </a> -->
 
         <a href="?page=region_management" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'region_management') ? 'active' : ''; ?>">
             <div class="icon-text">
@@ -70,12 +70,12 @@ if (isset($_GET['logout'])) {
             </div>
         </a>
 
-        <a href="?page=support" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'support') ? 'active' : ''; ?>">
+        <!-- <a href="?page=support" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'support') ? 'active' : ''; ?>">
             <div class="icon-text">
                 <div class="icon"><i class="fa-solid fa-phone"></i></div>
                 <div class="text">Hỗ trợ</div>
             </div>
-        </a>
+        </a> -->
 
         <a href="?logout=true" class="text-danger">
             <div class="icon-text">

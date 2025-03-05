@@ -42,19 +42,18 @@
         <div class="modal-header">
           <h5 class="modal-title" id="loginModalLabel">Login</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="modal-body">
           <form action="login.php" method="POST">
             <div class="form-group">
-              <label for="loginEmail">Email address</label>
-              <input type="email" class="form-control" id="loginEmail" name="email" placeholder="Enter email" required>
+              <label for="loginUsername">Username</label>
+              <input type="text" class="form-control" id="loginUsername" name="username" placeholder="Enter username" required>
             </div>
             <div class="form-group">
               <label for="loginPassword">Password</label>
-              <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password"
-                required>
+              <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password" required>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Login</button>
           </form>
@@ -73,58 +72,18 @@
         <div class="modal-header">
           <h5 class="modal-title" id="registerModalLabel">Register</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="modal-body">
-          <form action="register.php" method="POST" enctype="multipart/form-data">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="registerName">Full Name</label>
-                  <input type="text" class="form-control" id="registerName" name="name" placeholder="Enter full name"
-                    required>
-                </div>
-                <div class="form-group">
-                  <label for="registerPhone">Phone Number</label>
-                  <input type="text" class="form-control" id="registerPhone" name="phone_number"
-                    placeholder="Enter phone number" required>
-                </div>
-                <div class="form-group">
-                  <label for="registerAddress">Address</label>
-                  <input type="text" class="form-control" id="registerAddress" name="address"
-                    placeholder="Enter address" required>
-                </div>
-                <div class="form-group">
-                  <label for="registerGender">Gender</label>
-                  <select class="form-control" id="registerGender" name="gender" required>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="registerEmail">Email address</label>
-                  <input type="email" class="form-control" id="registerEmail" name="email" placeholder="Enter email"
-                    required>
-                </div>
-                <div class="form-group">
-                  <label for="registerPassword">Password</label>
-                  <input type="password" class="form-control" id="registerPassword" name="password"
-                    placeholder="Password" required>
-                </div>
-                <div class="form-group">
-                  <label for="registerDob">Date of Birth</label>
-                  <input type="date" class="form-control" id="registerDob" name="date_of_birth" required>
-                </div>
-                <div class="form-group">
-                  <label for="profilePicture">Profile Picture</label>
-                  <input style="background-color: rgb(0,0,0,0) !important;" type="file" class="form-control"
-                    id="profilePicture" name="profile_picture" accept="image/*" required>
-                </div>
-              </div>
+          <form action="register.php" method="POST">
+            <div class="form-group">
+              <label for="registerUsername">Username</label>
+              <input type="text" class="form-control" id="registerUsername" name="username" placeholder="Enter username" required>
+            </div>
+            <div class="form-group">
+              <label for="registerPassword">Password</label>
+              <input type="password" class="form-control" id="registerPassword" name="password" placeholder="Password" required>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Register</button>
           </form>
@@ -134,21 +93,20 @@
   </div>
 
   <!-- Forgot Password Modal -->
-  <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="modal-body">
           <form>
             <div class="form-group">
-              <label for="forgotEmail">Email address</label>
-              <input type="email" class="form-control" id="forgotEmail" placeholder="Enter your email">
+              <label for="forgotUsername">Username</label>
+              <input type="text" class="form-control" id="forgotUsername" placeholder="Enter your username">
             </div>
             <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
           </form>
