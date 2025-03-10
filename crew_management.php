@@ -17,10 +17,18 @@ if (mysqli_num_rows($result) > 0) {
 } else {
     $crews = [];
 }
-$ship_query = "SELECT ship_code, name FROM ships";
+// Lấy danh sách khu vực
+$area_query = "SELECT id, name FROM area";
+$area_result = $conn->query($area_query);
+$areas = [];
+while ($row = $area_result->fetch_assoc()) {
+    $areas[$row['id']] = $row['name'];
+}
+
+// Lấy danh sách tàu
+$ship_query = "SELECT ship_code, area_id, name FROM ships";
 $ship_result = $conn->query($ship_query);
 $ships = $ship_result->fetch_all(MYSQLI_ASSOC);
-
 
 mysqli_close($conn);
 ?>
@@ -121,12 +129,14 @@ mysqli_close($conn);
                       
                       <div class="row">
                           <div class="col-md-4">
-                              <label>Mã tàu:</label>
+                              <label>Tên tàu - Khu vực:</label>
                               <select id="ship_code" name="ship_code" class="form-control">
-                                  <?php foreach ($ships as $ship) : ?>
-                                      <option value="<?= $ship['ship_code'] ?>"><?= $ship['ship_code'] ?> - <?= $ship['name'] ?></option>
-                                  <?php endforeach; ?>
-                              </select>
+                                    <?php foreach ($ships as $ship) : ?>
+                                        <option value="<?= $ship['ship_code'] ?>">
+                                            <?= $ship['name'] ?> - <?= $areas[$ship['area_id']] ?? 'Không xác định' ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
                               
                               <label>Ngày thay đổi cuối:</label>
                               <input type="date" id="last_change_date" name="last_change_date" class="form-control">
