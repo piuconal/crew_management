@@ -121,3 +121,47 @@ document.getElementById("deleteCrew").addEventListener("click", function () {
       .catch((error) => console.error("Lỗi:", error));
   }
 });
+
+//tìm kiếm
+const searchInput = document.getElementById("search-input");
+const selectBox = document.getElementById("ship_code");
+
+// Hiển thị input và mở danh sách tùy chọn
+function showSearchInput() {
+  searchInput.style.display = "block";
+  searchInput.focus();
+  selectBox.size = 5; // Đặt chiều cao để hiển thị nhiều tùy chọn
+}
+
+// Ẩn input khi click ra ngoài
+document.addEventListener("click", function (event) {
+  if (!event.target.closest(".form-control")) {
+    searchInput.style.display = "none";
+    selectBox.size = 1; // Thu gọn lại khi mất focus
+  }
+});
+
+// Lọc các tùy chọn trong select
+searchInput.addEventListener("keyup", function () {
+  const filter = searchInput.value.toLowerCase();
+  const options = selectBox.getElementsByTagName("option");
+
+  let hasVisibleOption = false;
+
+  for (let i = 0; i < options.length; i++) {
+    const text = options[i].textContent.toLowerCase();
+    if (text.includes(filter)) {
+      options[i].style.display = "";
+      hasVisibleOption = true;
+    } else {
+      options[i].style.display = "none";
+    }
+  }
+
+  // Mở danh sách nếu có tùy chọn hiển thị
+  if (hasVisibleOption) {
+    selectBox.size = 5;
+  } else {
+    selectBox.size = 1;
+  }
+});

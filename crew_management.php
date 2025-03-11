@@ -129,14 +129,18 @@ mysqli_close($conn);
                       
                       <div class="row">
                           <div class="col-md-4">
-                              <label>Tên tàu - Khu vực:</label>
-                              <select id="ship_code" name="ship_code" class="form-control">
+                          <div style="position: relative; margin-bottom: 10px;">
+                                <label>Tên tàu - Khu vực:</label>
+                                <input type="text" id="search-input" class="form-control" placeholder="Nhập tên tàu hoặc khu vực..." 
+                                    style="display: none; position: absolute; top: 0; left: 0; width: 100%; z-index: 1;">
+                                <select id="ship_code" name="ship_code" class="form-control" onclick="showSearchInput()" size="5">
                                     <?php foreach ($ships as $ship) : ?>
                                         <option value="<?= $ship['ship_code'] ?>">
                                             <?= $ship['name'] ?> - <?= $areas[$ship['area_id']] ?? 'Không xác định' ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
+                            </div>
                               
                               <label>Ngày thay đổi cuối:</label>
                               <input type="date" id="last_change_date" name="last_change_date" class="form-control">
@@ -237,7 +241,7 @@ mysqli_close($conn);
                       <div class="row">
                           <!-- CỘT 1 -->
                           <div class="col-md-4">
-                              <label>Mã tàu:</label>
+                              <label>Tên tàu - khu vực:</label>
                               <select id="ship_code" name="ship_code" class="form-control">
                                   <?php foreach ($ships as $ship) : ?>
                                       <option value="<?= $ship['ship_code'] ?>"><?= $ship['ship_code'] ?> - <?= $ship['name'] ?></option>
