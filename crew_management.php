@@ -244,7 +244,9 @@ mysqli_close($conn);
                               <label>Tên tàu - khu vực:</label>
                               <select id="ship_code" name="ship_code" class="form-control">
                                   <?php foreach ($ships as $ship) : ?>
-                                      <option value="<?= $ship['ship_code'] ?>"><?= $ship['ship_code'] ?> - <?= $ship['name'] ?></option>
+                                      <option value="<?= $ship['ship_code'] ?>">
+                                            <?= $ship['name'] ?> - <?= $areas[$ship['area_id']] ?? 'Không xác định' ?>
+                                        </option>
                                   <?php endforeach; ?>
                               </select>
                               
