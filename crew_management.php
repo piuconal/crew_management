@@ -147,9 +147,16 @@ mysqli_close($conn);
                               <label>Số hộ chiếu:</label>
                               <input type="text" id="passport_number" name="passport_number" class="form-control" readonly>
                               
-                              <label>Trạng thái làm việc:</label>
-                              <input type="text" id="employment_status" name="employment_status" class="form-control">
-                              
+                            <label>Trạng thái làm việc:</label>
+                            <select id="employment_status" name="employment_status" class="form-control">
+                                <option value="근무" <?= $crew['employment_status'] == '근무' ? 'selected' : '' ?>>근무</option>
+                                <option value="하선(고용중단)" <?= $crew['employment_status'] == '하선(고용중단)' ? 'selected' : '' ?>>하선(고용중단)</option>
+                                <option value="근무지이탈" <?= $crew['employment_status'] == '근무지이탈' ? 'selected' : '' ?>>근무지이탈</option>
+                                <option value="강제출국(이탈)" <?= $crew['employment_status'] == '강제출국(이탈)' ? 'selected' : '' ?>>강제출국(이탈)</option>
+                                <option value="자진출국" <?= $crew['employment_status'] == '자진출국' ? 'selected' : '' ?>>자진출국</option>
+                                <option value="사망" <?= $crew['employment_status'] == '사망' ? 'selected' : '' ?>>사망</option>
+                            </select>
+              
                               <label>Ngày nhập cảnh:</label>
                               <input type="date" id="entry_date" name="entry_date" class="form-control">
                               
@@ -247,7 +254,14 @@ mysqli_close($conn);
                               <input type="text" name="passport_number" class="form-control" required>
                               
                               <label>Trạng thái làm việc:</label>
-                              <input type="text" name="employment_status" class="form-control">
+                                <select id="employment_status" name="employment_status" class="form-control">
+                                    <option value="근무" <?= $crew['employment_status'] == '근무' ? 'selected' : '' ?>>근무</option>
+                                    <option value="하선(고용중단)" <?= $crew['employment_status'] == '하선(고용중단)' ? 'selected' : '' ?>>하선(고용중단)</option>
+                                    <option value="근무지이탈" <?= $crew['employment_status'] == '근무지이탈' ? 'selected' : '' ?>>근무지이탈</option>
+                                    <option value="강제출국(이탈)" <?= $crew['employment_status'] == '강제출국(이탈)' ? 'selected' : '' ?>>강제출국(이탈)</option>
+                                    <option value="자진출국" <?= $crew['employment_status'] == '자진출국' ? 'selected' : '' ?>>자진출국</option>
+                                    <option value="사망" <?= $crew['employment_status'] == '사망' ? 'selected' : '' ?>>사망</option>
+                                </select>
                               
                               <label>Ngày nhập cảnh:</label>
                               <input type="date" name="entry_date" class="form-control">
