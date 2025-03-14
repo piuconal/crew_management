@@ -241,14 +241,27 @@ mysqli_close($conn);
                       <div class="row">
                           <!-- CỘT 1 -->
                           <div class="col-md-4">
-                              <label>Tên tàu - khu vực:</label>
-                              <select id="ship_code" name="ship_code" class="form-control">
-                                  <?php foreach ($ships as $ship) : ?>
-                                      <option value="<?= $ship['ship_code'] ?>">
-                                            <?= $ship['name'] ?> - <?= $areas[$ship['area_id']] ?? 'Không xác định' ?>
-                                        </option>
-                                  <?php endforeach; ?>
-                              </select>
+                                <label>Tên tàu - khu vực:</label></br>
+                                <button id="openShipModal" type="button" class="btn btn-warning">Chọn tàu</button>
+
+                                <div id="shipModal" class="modal" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <input type="text" id="shipSearch" class="form-control" placeholder="Tìm kiếm tàu...">
+                                                <ul id="shipList" class="list-group mt-2" style="max-height: 150px; overflow-y: auto;">
+                                                    <?php foreach ($ships as $ship) : ?>
+                                                        <li data-ship-code="<?= $ship['ship_code'] ?>" class="list-group-item list-group-item-action">
+                                                            <?= $ship['name'] ?> - <?= $areas[$ship['area_id']] ?? 'Không xác định' ?>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" id="selectedShipCode" name="ship_code"></br>
                               
                               <label>Ngày thay đổi cuối:</label>
                               <input type="date" name="last_change_date" class="form-control" required>
@@ -343,6 +356,7 @@ mysqli_close($conn);
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="js/crew_management.js"></script>
+  <script src="js/crew_management_add_search.js"></script>
 </body>
 
 </html>

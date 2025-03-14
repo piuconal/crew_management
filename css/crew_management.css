@@ -64,3 +64,33 @@ td img {
 #scrollToTopBtn:hover {
   background-color: #0056b3;
 }
+
+#shipModal .modal-dialog {
+  margin-left: 300px;
+  margin-top: 90px;
+  max-width: 300px; /* Giảm chiều rộng tối đa */
+}
+
+#shipModal .modal-body {
+  max-height: 250px;
+  padding: 15px;
+}
+
+#shipModal .modal-header,
+#shipModal .modal-footer {
+  padding: 10px 15px; /* Giảm padding header và footer */
+}
+
+#shipModal .modal-title {
+  font-size: 1rem; /* Giảm kích thước font tiêu đề */
+}
+
+#shipModal .list-group-item {
+  padding: 8px 12px; /* Giảm padding các item trong list */
+  font-size: 0.9rem; /* Giảm kích thước font các item trong list */
+}
+
+#shipModal .form-control {
+  font-size: 0.9rem; /* Giảm kích thước font input search */
+  padding: 6px 10px; /* Giảm padding input search */
+}
