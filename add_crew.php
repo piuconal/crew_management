@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param(
-            "ssssssssssddsisiissi", 
+            "ssssssssssddsisssssi", 
             $ship_code, $last_change_date, $name, $passport_number, $employment_status,
             $entry_date, $foreign_number, $vietnam_address, $vietnam_phone, $education,
             $height, $weight, $marital_status, $family_size, $transfer_count,

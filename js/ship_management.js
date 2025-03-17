@@ -8,7 +8,7 @@ $("#searchInput").keyup(function () {
 
     // Filter the table rows based on the search term
     $("table tbody tr").each(function () {
-      var shipNameText = $(this).find("td:nth-child(2)").text().toLowerCase(); // Ship Name column (2nd column)
+      var shipNameText = $(this).find("td:nth-child(1)").text().toLowerCase(); // Ship Name column (2nd column)
       var ownerNameText = $(this).find("td:nth-child(6)").text().toLowerCase(); // Owner Name column (6th column)
 
       // If the ship name or owner name doesn't match the search term, hide the row
