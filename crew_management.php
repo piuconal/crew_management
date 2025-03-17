@@ -357,6 +357,7 @@ mysqli_close($conn);
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="js/crew_management.js"></script>
   <script src="js/crew_management_add_search.js"></script>
+  <script src="js/sort_crew_management.js"></script>
 </body>
 
 </html>
