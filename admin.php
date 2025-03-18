@@ -70,12 +70,12 @@ if (isset($_GET['logout'])) {
             </div>
         </a>
 
-        <!-- <a href="?page=support" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'support') ? 'active' : ''; ?>">
+        <a href="?page=history" class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'history') ? 'active' : ''; ?>">
             <div class="icon-text">
-                <div class="icon"><i class="fa-solid fa-phone"></i></div>
-                <div class="text">Hỗ trợ</div>
+                <div class="icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                <div class="text">Lịch sử</div>
             </div>
-        </a> -->
+        </a>
 
         <a href="?logout=true" class="text-danger">
             <div class="icon-text">
@@ -107,8 +107,8 @@ if (isset($_GET['logout'])) {
                 case 'overview':
                     include('overview.php');
                     break;
-                case 'support':
-                    include('support.php');
+                case 'history':
+                    include('history.php');
                     break;
                 default:
                     echo "<h2>Trang không tồn tại</h2>";
