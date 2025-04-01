@@ -58,7 +58,8 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("editShipType").value = this.dataset.type;
       document.getElementById("editShipCode").value = this.dataset.code;
       document.getElementById("editAreaId").value = this.dataset.area;
-
+      document.getElementById("editCompanyId").value = this.dataset.companyId; // Mới thêm
+      document.getElementById("editCompanyAddress").value = this.dataset.companyAddress; // Mới thêm
       // Lưu ID tàu vào nút xóa
       document
         .getElementById("btnDeleteShip")

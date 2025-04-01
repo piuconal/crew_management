@@ -47,29 +47,37 @@ $ships = mysqli_num_rows($result) > 0 ? mysqli_fetch_all($result, MYSQLI_ASSOC) 
             <th>Loại nghề</th>
             <th>Mã số tàu</th>
             <th>Khu vực</th>
+            <th>ID công ty</th>
+            <th>Địa chỉ công ty</th>
             <!-- <th>Trạng thái nổi bật</th> -->
           </tr>
         </thead>
         <tbody>
           <?php if (!empty($ships)) : ?>
             <?php foreach ($ships as $ship) : ?>
-              <tr class="ship-row" 
-                data-id="<?php echo $ship['id']; ?>" 
-                data-name="<?php echo htmlspecialchars($ship['name']); ?>" 
-                data-company="<?php echo htmlspecialchars($ship['company_name']); ?>"
-                data-owner="<?php echo htmlspecialchars($ship['owner_name']); ?>"
-                data-type="<?php echo htmlspecialchars($ship['ship_type']); ?>"
-                data-code="<?php echo htmlspecialchars($ship['ship_code']); ?>"
-                data-area="<?php echo $ship['area_id']; ?>">
-                <!-- <td><?php echo htmlspecialchars($ship['id']); ?></td> -->
-                <td><?php echo htmlspecialchars($ship['name']); ?></td>
-                <td><?php echo htmlspecialchars($ship['company_name']); ?></td>
-                <td><?php echo htmlspecialchars($ship['owner_name']); ?></td>
-                <td><?php echo htmlspecialchars($ship['ship_type']); ?></td>
-                <td><?php echo htmlspecialchars($ship['ship_code']); ?></td>
-                <td><?php echo htmlspecialchars($ship['area_name']); ?></td>
-                <!-- <td><?php echo $ship['outstanding_status'] ? 'Có' : 'Không'; ?></td> -->
-              </tr>
+                <tr class="ship-row" 
+                    data-id="<?php echo htmlspecialchars($ship['id']); ?>" 
+                    data-name="<?php echo htmlspecialchars($ship['name']); ?>" 
+                    data-company="<?php echo htmlspecialchars($ship['company_name']); ?>"
+                    data-owner="<?php echo htmlspecialchars($ship['owner_name']); ?>"
+                    data-type="<?php echo htmlspecialchars($ship['ship_type']); ?>"
+                    data-code="<?php echo htmlspecialchars($ship['ship_code']); ?>"
+                    data-area="<?php echo htmlspecialchars($ship['area_id']); ?>"
+                    data-company-id="<?php echo htmlspecialchars($ship['company_id']); ?>"
+                    data-company-address="<?php echo htmlspecialchars($ship['company_address']); ?>"> <!-- Mới thêm -->
+                    
+                    <!-- <td><?php echo htmlspecialchars($ship['id']); ?></td> -->
+                    <td><?php echo htmlspecialchars($ship['name']); ?></td>
+                    <td><?php echo htmlspecialchars($ship['company_name']); ?></td>
+                    <td><?php echo htmlspecialchars($ship['owner_name']); ?></td>
+                    <td><?php echo htmlspecialchars($ship['ship_type']); ?></td>
+                    <td><?php echo htmlspecialchars($ship['ship_code']); ?></td>
+                    <td><?php echo htmlspecialchars($ship['area_name']); ?></td>
+                    <td><?php echo htmlspecialchars($ship['company_id']); ?></td> <!-- Mới thêm -->
+                    <td><?php echo htmlspecialchars($ship['company_address']); ?></td>
+                    <!-- <td><?php echo $ship['outstanding_status'] ? 'Có' : 'Không'; ?></td> -->
+                </tr>
+
             <?php endforeach; ?>
           <?php else : ?>
             <tr>
@@ -91,94 +99,117 @@ $ships = mysqli_num_rows($result) > 0 ? mysqli_fetch_all($result, MYSQLI_ASSOC) 
                 </button>
             </div>
             <div class="modal-body">
-              <form id="addShipForm">
-                  <div class="form-group">
-                      <label for="shipName">Tên tàu</label>
-                      <input type="text" class="form-control" id="shipName" name="name" required>
-                  </div>
-                  <div class="form-group">
-                      <label for="companyName">Tên công ty</label>
-                      <input type="text" class="form-control" id="companyName" name="company_name">
-                  </div>
-                  <div class="form-group">
-                      <label for="ownerName">Chủ sở hữu</label>
-                      <input type="text" class="form-control" id="ownerName" name="owner_name">
-                  </div>
-                  <div class="form-group">
-                      <label for="shipType">Loại nghề</label>
-                      <input type="text" class="form-control" id="shipType" name="ship_type">
-                  </div>
-                  <div class="form-group">
-                      <label for="shipCode">Mã số tàu</label>
-                      <input type="text" class="form-control" id="shipCode" name="ship_code">
-                  </div>
-                  <div class="form-group">
-                      <label>Khu vực</label>
-                      <select name="area_id" class="form-control" required>
-                          <option value="">Chọn khu vực</option>
-                          <?php foreach ($areas as $area) : ?>
-                              <option value="<?php echo $area['id']; ?>">
-                                  <?php echo htmlspecialchars($area['name']); ?>
-                              </option>
-                          <?php endforeach; ?>
-                      </select>
-                  </div>
-                  <button type="submit" class="btn btn-success">Thêm</button>
-              </form>
+                <form id="addShipForm">
+                    <div class="form-group">
+                        <label for="shipName">Tên tàu</label>
+                        <input type="text" class="form-control" id="shipName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="companyName">Tên công ty</label>
+                        <input type="text" class="form-control" id="companyName" name="company_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="companyId">ID công ty</label>
+                        <input type="number" class="form-control" id="companyId" name="company_id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="companyAddress">Địa chỉ công ty</label>
+                        <input type="text" class="form-control" id="companyAddress" name="company_address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ownerName">Chủ sở hữu</label>
+                        <input type="text" class="form-control" id="ownerName" name="owner_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="shipType">Loại nghề</label>
+                        <input type="text" class="form-control" id="shipType" name="ship_type" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="shipCode">Mã số tàu</label>
+                        <input type="text" class="form-control" id="shipCode" name="ship_code" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Khu vực</label>
+                        <select name="area_id" class="form-control" required>
+                            <option value="">Chọn khu vực</option>
+                            <?php foreach ($areas as $area) : ?>
+                                <option value="<?php echo $area['id']; ?>">
+                                    <?php echo htmlspecialchars($area['name']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                </form>
             </div>
         </div>
     </div>
   </div>
 
   <div id="shipModal" class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title">Chi tiết tàu</h5>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
-              <div class="modal-body">
-                  <form id="editShipForm">
-                      <input type="hidden" id="editShipId" name="id">
-                      <div class="form-group">
-                          <label>Tên tàu</label>
-                          <input type="text" class="form-control" id="editShipName" name="name">
-                      </div>
-                      <div class="form-group">
-                          <label>Tên công ty</label>
-                          <input type="text" class="form-control" id="editCompanyName" name="company_name">
-                      </div>
-                      <div class="form-group">
-                          <label>Chủ sở hữu</label>
-                          <input type="text" class="form-control" id="editOwnerName" name="owner_name">
-                      </div>
-                      <div class="form-group">
-                          <label>Loại nghề</label>
-                          <input type="text" class="form-control" id="editShipType" name="ship_type">
-                      </div>
-                      <div class="form-group">
-                          <label>Mã số tàu</label>
-                          <input type="text" class="form-control" id="editShipCode" name="ship_code">
-                      </div>
-                      <div class="form-group">
-                          <label>Khu vực</label>
-                          <select id="editAreaId" name="area_id" class="form-control">
-                              <?php foreach ($areas as $area) : ?>
-                                  <option value="<?php echo $area['id']; ?>">
-                                      <?php echo htmlspecialchars($area['name']); ?>
-                                  </option>
-                              <?php endforeach; ?>
-                          </select>
-                      </div>
-                  </form>
-              </div>
-              <div class="modal-footer">
-                  <button id="btnDeleteShip" class="btn btn-danger">Xóa</button>
-                  <button type="submit" class="btn btn-success" form="editShipForm">Cập nhật</button>
-              </div>
-          </div>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chi tiết tàu</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editShipForm">
+                    <input type="hidden" id="editShipId" name="id">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="editShipName">Tên tàu</label>
+                            <input type="text" class="form-control" id="editShipName" name="name">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="editCompanyName">Tên công ty</label>
+                            <input type="text" class="form-control" id="editCompanyName" name="company_name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="editOwnerName">Chủ sở hữu</label>
+                            <input type="text" class="form-control" id="editOwnerName" name="owner_name">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="editShipType">Loại nghề</label>
+                            <input type="text" class="form-control" id="editShipType" name="ship_type">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="editShipCode">Mã số tàu</label>
+                            <input type="text" class="form-control" id="editShipCode" name="ship_code">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="editCompanyId">ID công ty</label>
+                            <input type="text" class="form-control" id="editCompanyId" name="company_id"> <!-- Mới thêm -->
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="editCompanyAddress">Địa chỉ công ty</label>
+                            <input type="text" class="form-control" id="editCompanyAddress" name="company_address"> <!-- Mới thêm -->
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="editAreaId">Khu vực</label>
+                            <select id="editAreaId" name="area_id" class="form-control">
+                                <?php foreach ($areas as $area) : ?>
+                                    <option value="<?php echo $area['id']; ?>">
+                                        <?php echo htmlspecialchars($area['name']); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btnDeleteShip" class="btn btn-danger">Xóa</button>
+                <button type="submit" class="btn btn-success" form="editShipForm">Cập nhật</button>
+            </div>
+        </div>
+    </div>
   </div>
+
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
