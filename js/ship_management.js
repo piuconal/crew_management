@@ -71,27 +71,44 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Khi submit form cập nhật
-  document
-    .getElementById("editShipForm")
-    .addEventListener("submit", function (e) {
-      e.preventDefault();
+  document.getElementById("editShipForm").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-      let formData = new FormData(this);
+    let formData = new FormData(this);
 
-      fetch("update_ship.php", {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            location.reload();
-          } else {
-            alert("Lỗi: " + data.message);
+    fetch("update_ship.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          // Cập nhật trực tiếp dòng trong bảng
+          const shipId = formData.get("id");
+          const row = document.querySelector(`tr[data-id='${shipId}']`);
+          if (row) {
+            row.dataset.name = formData.get("name");
+            row.dataset.company = formData.get("company_name");
+            row.dataset.owner = formData.get("owner_name");
+            row.dataset.type = formData.get("ship_type");
+            row.dataset.code = formData.get("ship_code");
+            row.dataset.area = formData.get("area_id");
+            row.dataset.companyId = formData.get("company_id");
+            row.dataset.companyAddress = formData.get("company_address");
+
+            // Cập nhật luôn nội dung hiển thị trong các cột (nếu có hiển thị trong bảng)
+            row.querySelector("td:nth-child(1)").textContent = formData.get("name");
+            row.querySelector("td:nth-child(6)").textContent = formData.get("owner_name");
           }
-        })
-        .catch((error) => console.error("Lỗi:", error));
-    });
+
+          // Ẩn modal sau khi cập nhật
+          $("#shipModal").modal("hide");
+        } else {
+          alert("Lỗi: " + data.message);
+        }
+      })
+      .catch((error) => console.error("Lỗi:", error));
+  });
 
   // Khi click vào nút "Xóa"
   document
